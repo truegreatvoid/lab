@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login - Lab</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"/>        
+        {% include "base/include/_css.html" %}
+    </head>
+    <body id="kt_body" class="auth-bg">
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+
+        <div class="d-flex flex-column flex-root">
+            <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({% static 'media/illustrations/14.png' %})">
+                <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+                    <a href="#" class="mb-12">
+                        <img alt="Logo" src="{% static 'media/logos/logo-default.svg' %}" class="h-60px"/>
+                    </a>     
+                    <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+                        <form class="form w-100" method="post" action="{% url 'base:login' %}">
+                            {% csrf_token %}
+
+                            <div class="text-center mb-10">
+                                <h1 class="text-dark mb-3">
+                                    Bem-Vindo de volta ao Lab
+                                </h1>
+                            </div>
+                            <div class="fv-row mb-10">
+                                <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+                                {{ form.username }} <!-- Campo de e-mail gerado pela view -->
+                            </div>
+                            <div class="fv-row mb-10">
+                                <label class="form-label fs-6 fw-bolder text-dark">Senha</label>
+                                {{ form.password }} <!-- Campo de senha gerado pela view -->
+                            </div>
+
+
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger fw-bold mb-5">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %} 
+
+                            <div class="text-center">
+                                <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                                    <span class="indicator-label">
+                                        Entrar
+                                    </span>
+                                    
+                                    <span class="indicator-progress">
+                                        Aguarde um momento... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "base/include/_js.html" %}
+        <script src="{% static 'js/custom/authentication/sign-in/general.js' %}"></script>
+    </body>
+</html>

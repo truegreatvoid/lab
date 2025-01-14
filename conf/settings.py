@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'apps.base',
     'apps.colaborador',
     'apps.tabela',
+    'apps.dashboard',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'conf.wsgi.application'
+
+LOGIN_URL = 'base:login'
+LOGIN_REDIRECT_URL = 'dashboard:dashboard'
+LOGOUT_REDIRECT_URL = 'base:logout'
+
 
 AUTH_USER_MODEL = 'colaborador.Colaborador'
 

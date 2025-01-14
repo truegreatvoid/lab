@@ -1,0 +1,70 @@
+{% load static %}
+
+<div class="row g-5 g-xl-10">
+  <div class="col-12">
+    <div class="card h-md-100">
+      <div class="card-header position-relative py-0 border-bottom-1">
+        <h3 class="card-title text-gray-800 fw-bolder">Quadro de Horário</h3>
+      </div>
+      <div class="card-body pb-0">
+        <div class="">
+          <table class="table table-middle table-expandable  table-row-dashed   fs-6 gy-4">
+            <thead>
+              <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                <th class="min-w-100px">Turma</th>
+                <th class="text-end min-w-100px">Disciplina</th>
+                <th class="text-end min-w-150px">Situação</th>
+                <th class="text-end min-w-100px">Professor(a)</th>
+                <th class="text-end"></th>
+              </tr>
+            </thead>
+            <tbody class="fw-bold text-gray-600">
+              <tr class="main-row">
+                <td>
+                  <a href="#" class="text-gray-900 text-hover-primary"></a>
+                </td>
+                <td class="text-end">
+                  10 Nov 2021, 10:30 am
+                </td>
+                <td class="text-end">
+                  <a href="" class="text-gray-900 text-hover-primary">Emma Smith</a>
+                </td>
+                <td class="text-end">
+                  <a href="" class="text-gray-900 text-hover-primary">Emma Smith</a>
+                </td>
+                <td class="text-end">
+                  <button type="button" class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
+                    <span class="svg-icon fs-3 m-0 ">...</span>
+                  </button>
+                </td>
+              </tr>
+              <tr class="expand-row" style="display: none;">
+                <td colspan="4">
+                  <h4>Additional information</h4>
+                  <ul>
+                    <li><a href="#">USA on Wikipedia</a></li>
+                    <li><a href="#">National Atlas of the United States</a></li>
+                    <li><a href="#">Historical Documents</a></li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const mainRows = document.querySelectorAll('.main-row');
+
+  mainRows.forEach(row => {
+    row.addEventListener('click', () => {
+      const nextRow = row.nextElementSibling;
+      if (nextRow && nextRow.classList.contains('expand-row')) {
+        nextRow.style.display = nextRow.style.display === 'none' ? 'table-row' : 'none';
+      }
+    });
+  });
+</script>

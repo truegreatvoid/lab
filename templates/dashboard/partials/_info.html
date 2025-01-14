@@ -1,0 +1,111 @@
+{% load static %}
+<style>
+  
+</style>
+
+<div class="row g-5 g-xl-10">
+  <div class="col-12">
+    <div class="card h-md-100">
+      <div class="card-header position-relative py-0 border-bottom-1 d-flex justify-content-between align-items-center">
+        <h3 class="card-title text-gray-800 fw-bolder text-capitalize">Grade Curricular</h3>
+        <div>
+          <span class="fw-bold fs-5">{{ user.turma.turma }}</span>
+        </div>
+      </div>
+      
+      <div class="card-body pb-0">
+        <div class="">
+
+          {% if turmas %}
+          <table class="table table-middle table-expandable table-row-dashed fs-6 gy-4">
+            <thead>
+              <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                <th class="min-w-100px">Disciplina</th>
+                <th class="min-w-150px">Professor(a)</th>
+                <th class="text-center min-w-150px">1 AV</th>
+                <th class="text-center min-w-150px">2 AV</th>
+                <th class="text-center min-w-150px">3 AV</th>
+                <th class="text-center min-w-150px">Final</th>
+                <th class="text-center min-w-150px">Recuperação</th>
+                <th class="text-center min-w-150px">Situação</th>
+              </tr>
+            </thead>
+            <tbody class="fw-bold text-gray-600">
+              {% for turma in turmas %}
+                {% for materia in turma.materias %}
+                  <tr class="main-row text-gray-900">
+                    <td>{{ materia.nome }}</td>
+                    <td class="text-capitalize">{{ materia.professor }}</td>
+                    <td class="text-center">{{ materia.notas.AV1|default:"-" }}</td>
+                    <td class="text-center">{{ materia.notas.AV2|default:"-" }}</td>
+                    <td class="text-center">{{ materia.notas.AV3|default:"-" }}</td>
+                    <td class="text-center">{{ materia.notas.FINAL|default:"-" }}</td>
+                    <td class="text-center">{{ materia.notas.REC|default:"-" }}</td>
+                    <td class="text-center">
+                      <span class="badge 
+                        badge-light-{% if materia.nome == 'Historia' %}primary
+                        {% elif materia.nome == 'Ingles' %}danger
+                        {% elif materia.nome == 'Arte' %}success
+                        {% elif materia.nome == 'Física' %}success
+                        {% else %}warning
+                        {% endif %}">
+                        
+
+                        {% if materia.nome == 'Historia' %}Matriculado
+                        {% elif materia.nome == 'Ingles' %}Reprovado
+                        {% elif materia.nome == 'Arte' %}Aprovado
+                        {% elif materia.nome == 'Física' %}Aprovado
+                        {% else %}warning
+                        {% endif %}
+
+
+                      </span>
+                    </td>
+                  </tr>
+                  <tr class="expand-row" style="display: none;">
+                    <td colspan="8">
+                        
+                        <div class="">
+                          <dl class="fs-6 row pt-5">
+                            <span class="fs-4 fw-bold pb-3">Informações Complementares:</span>
+                            <hr>
+                            
+                            <dt class="col-5 pt-2">Professor(a):</dt>
+                            <dd class="col-7 pt-2"><span class="fs-7 text-capitalize">{{ materia.professor|default:'-'  }}</span></dd>
+                            <dt class="col-5">Duração:</dt>
+                            <dd class="col-7"><span class="fs-7 text-capitalize">{{ materia.horario }}</span></dd>
+
+                          </dl>
+                        </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="text-center">Nenhuma turma associada ao colaborador atual.</p>
+          {% endif %}
+
+        </div>
+      </div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  const mainRows = document.querySelectorAll('.main-row');
+
+  mainRows.forEach(row => {
+    row.addEventListener('click', () => {
+      const nextRow = row.nextElementSibling;
+      if (nextRow && nextRow.classList.contains('expand-row')) {
+        nextRow.style.display = nextRow.style.display === 'none' ? 'table-row' : 'none';
+      }
+    });
+  });
+</script>
+

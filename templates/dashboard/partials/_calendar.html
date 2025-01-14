@@ -1,0 +1,37 @@
+<div id="calendar_frequencia" class="fullcalendar"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar_frequencia');
+
+    if (calendarEl) {
+      const events = [
+        {% for turma in turmas %}
+          {% for materia in turma.materias.all %}
+            {% for freq in materia.frequencias.all %}
+              {
+                title: '{{ materia.nome }}',
+                start: '{{ freq.data|date:"Y-m-d" }}',
+                color: '{{ materia.cor }}',  // Adicione a cor da matéria aqui
+              },
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+      ];
+
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        },
+        events: events,
+      });
+
+      calendar.render();
+    } else {
+      console.error('Elemento com ID "calendar_frequencia" não encontrado.');
+    }
+  });
+</script>

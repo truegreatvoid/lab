@@ -1,0 +1,1 @@
+[{"model": "tabela.turma", "pk": 25, "fields": {"uuid": "22905ccd-3428-4a72-acf4-ca005306b2e8", "nome": "7ª Série", "ativo": true, "periodo": 1, "competencia": 1, "ensino": 1}}]

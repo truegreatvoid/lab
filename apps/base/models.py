@@ -10,7 +10,7 @@ class LabUUID(models.Model):
         abstract = True
 
 class Base(models.Model):
-    nome = models.CharField('Nome', unique=True, max_length=254, db_index=True)
+    nome = models.CharField('Nome', max_length=254, db_index=True)
     ativo = models.BooleanField(default=False)
 
     class Meta:

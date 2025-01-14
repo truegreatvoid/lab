@@ -6,7 +6,7 @@ from .models import Colaborador
 @admin.register(Colaborador)
 class ColaboradorAdmin(UserAdmin):
     # Quais campos aparecem na listagem do admin
-    list_display = ('nome', 'email', 'nivel', 'is_staff', 'is_active', 'login', 'ferias')
+    list_display = ('nome', 'email', 'uuid', 'cpf', 'matricula', 'nivel', 'turma', 'is_staff', 'is_active', 'login', 'ferias')
     list_filter = ('nivel', 'is_active', 'is_staff', 'login', 'ferias')
     search_fields = ('nome', 'email')
     ordering = ('email',)
@@ -17,10 +17,13 @@ class ColaboradorAdmin(UserAdmin):
             'fields': ('email', 'password')  # em vez de "username", use "email"
         }),
         ('Informações Pessoais', {
-            'fields': ('nome', 'apelido')
+            'fields': ('nome', 'apelido', 'cpf', 'matricula')
         }),
         ('Organização', {
             'fields': ('cargo', 'departamento')
+        }),
+        ('Informações da Turma', {
+            'fields': ('turma',)
         }),
         ('Permissões e Status', {
             'fields': (

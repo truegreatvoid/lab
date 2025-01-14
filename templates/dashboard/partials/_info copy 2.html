@@ -1,0 +1,80 @@
+{% load static %}
+
+<div class="row g-5 g-xl-10">
+  <div class="col-12">
+    <div class="card h-md-100">
+      <div class="card-header position-relative py-0 border-bottom-1 d-flex justify-content-between align-items-center">
+        <h3 class="card-title text-gray-800 fw-bolder">Quadro de Horário</h3>
+        <div>
+          <span class="fw-bold fs-5">{{ user.turma.turma }}</span>
+        </div>
+      </div>
+      
+      <div class="card-body pb-0">
+        <div class="">
+          {% if turmas %}
+          <table class="table table-middle table-expandable table-row-dashed fs-6 gy-4">
+            <thead>
+              <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                <th class="min-w-100px">Disciplina</th>
+                <th class="text-end min-w-150px">Professor(a)</th>
+                <th class="text-end min-w-150px">1 AV</th>
+                <th class="text-end min-w-150px">2 AV</th>
+                <th class="text-end min-w-150px">3 AV</th>
+                <th class="text-end min-w-150px">Final</th>
+                <th class="text-end min-w-150px">Recuperação</th>
+                <th class="text-end min-w-150px">Situação</th>
+                <th class="text-end"></th>
+              </tr>
+            </thead>
+            <tbody class="fw-bold text-gray-600">
+              {% for turma in turmas %}
+              {% for materia in turma.materias %}
+                <tr class="main-row">
+                  <td>{{ materia.nome }}</td>
+                  <td class="text-end">{{ materia.professor }}</td>
+                  <td class="text-end">{{ materia.notas.AV1|default:"-" }}</td>
+                  <td class="text-end">{{ materia.notas.AV2|default:"-" }}</td>
+                  <td class="text-end">{{ materia.notas.AV3|default:"-" }}</td>
+                  <td class="text-end">{{ materia.notas.FINAL|default:"-" }}</td>
+                  <td class="text-end">{{ materia.notas.REC|default:"-" }}</td>
+                  {% if forloop.first %}
+                    <td class="text-end" rowspan="{{ turma.materias|length }}">{{ turma.situacao }}</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              <tr class="expand-row" style="display: none;">
+                <td colspan="4">
+                  <h4>Informações Adicionais</h4>
+                  <ul>
+                    {% for info in turma.informacoes_adicionais %}
+                    <li>{{ info }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="text-center">Nenhuma turma associada ao colaborador atual.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const mainRows = document.querySelectorAll('.main-row');
+
+  mainRows.forEach(row => {
+    row.addEventListener('click', () => {
+      const nextRow = row.nextElementSibling;
+      if (nextRow && nextRow.classList.contains('expand-row')) {
+        nextRow.style.display = nextRow.style.display === 'none' ? 'table-row' : 'none';
+      }
+    });
+  });
+</script>

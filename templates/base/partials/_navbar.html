@@ -2,7 +2,7 @@
 
 <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
   <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-2 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-    <h1 class="text-dark fw-bolder my-1 fs-2">Bem-vindo(a) Tiago Xavier!
+    <h1 class="text-dark fw-bolder my-1 fs-2">Bem-vindo(a) <span class="text-capitalize">{{ user }}</span>!
     <small class="text-muted fs-6 fw-normal ms-1"></small></h1>
     <ul class="breadcrumb fw-bold fs-base my-1">
       <li class="breadcrumb-item text-muted">
@@ -39,15 +39,18 @@
               <img alt="Logo" src="{% static 'media/avatars/150-2.jpg' %}" />
             </div>
             <div class="d-flex flex-column">
-              <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-              <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-              <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+              <div class="fw-bolder d-flex align-items-center fs-5">{{ user }}
+              <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{ user.get_nivel_display }}</span></div>
+              <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ user.email }}</a>
             </div>
           </div>
         </div>
         <div class="separator my-2"></div>
         <div class="menu-item px-5">
-          <a href="#" class="menu-link px-5">Sign Out</a>
+          <a href="#" onclick="document.getElementById('logout-form').submit();" class="menu-link px-5">Sair</a>
+          <form id="logout-form" method="post" action="{% url 'base:logout' %}" style="display: none;">
+            {% csrf_token %}
+          </form>
         </div>
       </div>
     </div>

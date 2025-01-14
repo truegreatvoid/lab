@@ -5,4 +5,12 @@
 
 <span class="fs-5 fw-bold">He He</span>
 
+<h1>Bem-vindo ao Sistema</h1>
+
+
+<form method="post" action="{% url 'base:logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
 {% endblock conteudo %}
